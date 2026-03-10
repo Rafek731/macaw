@@ -10,13 +10,13 @@ namespace macaw {
 
     
     class Pattern {
-        int16_t greens;
-        int16_t yellows;
+        u_int8_t greens;
+        u_int8_t yellows;
 
         public:
-        int16_t greens();
-        int16_t yellows();
-        int16_t greys();
+        u_int8_t greens();
+        u_int8_t yellows();
+        u_int8_t greys();
     };
 
 
