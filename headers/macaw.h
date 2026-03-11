@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <iostream>
 
 namespace macaw {
     enum colors {
@@ -10,13 +11,24 @@ namespace macaw {
 
     
     class Pattern {
-        u_int8_t greens;
-        u_int8_t yellows;
+        /**
+         * pattern is stred as a number in trinary system where
+         * 2 = green
+         * 1 = yellow
+         * 0 = gray
+         * this way for example pattern [green green gray gray yellow] has value:
+         * 2*3^4+ 2*3^3 + 0*3^2 + 0*3^1 + 1*3^0 = 211
+         * 
+         */
+        u_int16_t value;
 
         public:
-        u_int8_t greens();
-        u_int8_t yellows();
-        u_int8_t greys();
+        Pattern() : value(0) {};
+        Pattern(int n) : value(n) {};
+        Pattern(Word &w1, Word &w2);
+
+        void print();
+        Pattern& operator=(Pattern &&p);
     };
 
 
