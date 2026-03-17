@@ -18,6 +18,10 @@ bool macaw::alphastr(const std::string &s) {
     return true;
 }
 
+void macaw::normalization::linear(const std::vector<double> &dist) {
+    
+}
+
 /**
  * algorithm goes like this:
  * iterate through both words first time

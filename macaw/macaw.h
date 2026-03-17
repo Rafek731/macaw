@@ -7,8 +7,10 @@
 
 namespace macaw {
     bool alphastr(const std::string &s);
-    void linear(std::vector<double>& v);
-    void softmax(std::vector<double>& v);
+    namespace normalization {
+        void linear(std::vector<double>& v);
+        void softmax(std::vector<double>& v);
+    }
     // TODO: better log2?
     double entropy(const std::vector<double>& dist);
     
@@ -41,9 +43,7 @@ namespace macaw {
         std::vector<double> entropies_;
 
         public:
-        explicit MacawV1(std::string path) : Guesser(std::filesystem::path(path)), normalization_fn(linear), entropies_({}) {
-            entropies_.reserve(words_.size());
-        }
+        explicit MacawV1(std::string path) : Guesser(std::filesystem::path(path)), normalization_fn(macaw::normalization::linear), entropies_({}) { entropies_.reserve(words_.size()); }
         MacawV1() : MacawV1(std::string("")) {}
         ~MacawV1();
 
