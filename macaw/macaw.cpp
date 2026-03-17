@@ -74,6 +74,7 @@ bool Guesser::load_words(fs::path path) {
         throw std::runtime_error(std::string("File is in incorrect format!"));
         return false;
     }
+    
     read_words_();
     return true;
 }
