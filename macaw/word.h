@@ -14,7 +14,6 @@ namespace macaw {
         std::string content() const;
         char operator[](size_t idx) const;
 
-        Pattern operator&(const Word &match);
         friend std::ostream& operator<<(std::ostream &os, const Word &word);
         friend macint make_pattern(const Word &guess, const Word &match);
     };

@@ -1,11 +1,12 @@
-#include "cppfiles/word.h"
 #include <iostream>
+#include "macawV1/macaw.h"
 
 using namespace macaw;
 
+
 int main(void) {
-    Word  guess(std::string("abaaa"));
-    Word answer(std::string("babbb"));
-    std::cout << make_pattern(guess, answer) << '\n';
+    MacawV1 m;
+    m.load_words(std::string("./valid_words.txt"));
     return 0;
+
 }

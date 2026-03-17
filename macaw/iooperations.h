@@ -1,9 +1,9 @@
 #pragma once
 #include <filesystem>
-#include <string>
 
 namespace macaw {
+    typedef uint16_t m_int;
     void read_words(const std::filesystem::path&& path);
     void write_to_file();
-    void check_file_correctness(const std::filesystem::path&& path);
+    int check_file_correctness(const std::filesystem::path&& path);
 }
