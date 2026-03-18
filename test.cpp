@@ -1,12 +1,24 @@
 #include <iostream>
-#include "macawV1/macaw.h"
+#include "macaw/macaw.h"
 
 using namespace macaw;
 
 
 int main(void) {
-    MacawV1 m;
-    m.load_words(std::string("./valid_words.txt"));
-    return 0;
+    std::ios_base::sync_with_stdio(false);
+    std::cin.tie(0);
 
+    MacawV1 m("valid_words.txt");
+    
+    for(const auto &w: m.words()) {
+        std::cout << w << '\n';
+    }
+
+    m.calc_entropies();
+    std::cout << m.entropies()[0];
+    for(const auto &e : m.entropies()){
+        std::cout << e << ' ';
+    }
+    
+    return 0;
 }

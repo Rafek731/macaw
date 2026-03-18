@@ -7,6 +7,7 @@
 
 namespace macaw {
     bool alphastr(const std::string &s);
+    unsigned int make_pattern(std::string_view guess, std::string_view match);
     namespace normalization {
         void linear(std::vector<double>& v);
         void softmax(std::vector<double>& v);
@@ -19,12 +20,12 @@ namespace macaw {
         protected:
         std::filesystem::path words_file_;
         std::vector<std::string> words_;
-        static unsigned int letters_;
-        static unsigned int number_of_patterns;
         bool file_correct_();
         bool read_words_();
-
+        
         public:
+        static unsigned int letters_;
+        static unsigned int number_of_patterns;
         Guesser() : Guesser(std::filesystem::path(std::string(""))) {}
 
         explicit Guesser(std::filesystem::path path) : words_file_(std::move(path)), words_({}) {
@@ -48,7 +49,7 @@ namespace macaw {
         ~MacawV1();
 
         void calc_entropies();  
+        std::vector<double> entropies() const {return entropies_; }
 
-        friend unsigned int make_pattern(std::string_view guess, std::string_view match);
     };
 }
