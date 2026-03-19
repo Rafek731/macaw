@@ -14,7 +14,7 @@ namespace macaw {
         void linear(std::vector<double>& v);
         void softmax(std::vector<double>& v);
     }
-
+    
     // TODO: better log2?
     double entropy(const std::vector<double>& dist);
 

@@ -1,5 +1,6 @@
 #include <iostream>
 #include "macaw/macaw.h"
+#include "macaw/pattern.h"
 
 using namespace macaw;
 
@@ -28,11 +29,15 @@ int main(void) {
 
     MacawV1 m("./valid_words.txt");
     
-    std::cout << m.words();
+    // std::cout << m.words();
 
-    m.calc_entropies();
-    std::cout << m.entropies();
-    m.sort_entropies();
-
+    // m.calc_entropies();
+    // std::cout << m.entropies();
+    // m.sort_entropies();
+    Pattern p(m.make_pattern("doggo", "foieg"));
+    std::cout << "foieg" << '\n';
+    std::cout << "doggo" << '\n';
+    std::cout << p << '\n';
+    std::cout << p.value() << '\n';
     return 0;
 }

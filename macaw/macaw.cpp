@@ -72,7 +72,7 @@ unsigned int Guesser::make_pattern(std::string_view guess, std::string_view matc
 
     for(unsigned int i = 0; i < letters_; i++) {
         if(guess[i] == match[i]) {
-            p += 2 * powers[number_of_patterns - i - 1];
+            p += 2 * powers[i];
             perfect_match[i] = true;
         }
         else remembered_match[match[i]]++;
@@ -80,7 +80,7 @@ unsigned int Guesser::make_pattern(std::string_view guess, std::string_view matc
 
     for(unsigned int i = 0; i < letters_; i++) {
         if(!perfect_match[i] && remembered_match[guess[i]]) {
-            p += powers[letters_ - i - 1];
+            p += powers[i];
             remembered_match[guess[i]]--;
         }
     }

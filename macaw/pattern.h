@@ -1,31 +1,28 @@
 #pragma once
 
-#define macint u_int16_t
-
 #include <iostream>
-#include "word.h"
 
 namespace macaw {
     class Pattern {
             /**
-             * pattern is stored as a number in trinary system where
+             * pattern is stored as a number in reverse (left to right) trinary system where
              * 2 = green
              * 1 = yellow
              * 0 = gray
              * this way for example pattern [green green gray gray yellow] has value:
-             * 2*3^4+ 2*3^3 + 0*3^2 + 0*3^1 + 1*3^0 = 211
+             * 2*3^0+ 2*3^1 + 0*3^2 + 0*3^3 + 1*3^4 = 89
              * */
             protected:
-            macint value;
+            unsigned int value_;
 
             public:
-            Pattern() : value(0) {};
-            Pattern(macint n) : value(n) {};
+            explicit Pattern(unsigned int n) : value_(n) {};
+            unsigned int value() const { return value_; }
+            
 
             void print();
-            Pattern& operator+=(macint num);
-            friend std::ostream& operator<<(std::ostream& os, Pattern &p);
-        };
+            Pattern& operator+=(unsigned int num);
 
-        std::ostream& operator<<(std::ostream& os, Pattern &p);
+        };
+        std::ostream& operator<<(std::ostream& os, const Pattern &p);
 }
