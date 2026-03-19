@@ -67,6 +67,7 @@ namespace macaw {
         protected:
         std::filesystem::path words_file_;
         std::vector<std::string> words_;
+        std::vector<size_t> best_words_;
 
         bool file_correct_();
         void read_words_();
@@ -95,22 +96,23 @@ namespace macaw {
     class MacawV1 : public Guesser {
 
         void (*normalization_fn)(std::vector<double>& v);
-        
+
+        std::vector<size_t> best_words_;
         std::vector<double> entropies_;
 
         public:
 
-        MacawV1(std::filesystem::path path) 
+        explicit MacawV1(std::filesystem::path path) 
         : Guesser(path)
         , normalization_fn(macaw::normalize::linear) 
-        , entropies_({}) { 
+        , entropies_({})
+        , best_words_({}) { 
             entropies_.resize(words_.size()); 
         }
-        
-        MacawV1() : MacawV1(std::string("")) {}
+
         ~MacawV1();
 
-        std::vector<double> entropies() const {return entropies_; }
+        std::vector<double> entropies() const { return entropies_; }
         
         void calc_entropies();  
         void sort_entropies();

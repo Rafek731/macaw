@@ -3,6 +3,24 @@
 
 using namespace macaw;
 
+template<typename T>
+std::ostream& operator<<(std::ostream &os, const std::vector<T> &v) {
+    os << '[';
+    if(v.size() <= 50){
+        for(const auto& element : v) 
+            os << element << ' ';
+         
+    }
+    else {
+        for(int i=0; i < 30; i++)
+            os << v[i] << ' ';
+        os << "... ";
+        for(int i=v.size() - 5; i < v.size(); i++)
+            os << v[i] << ' ';
+    }
+    os << "\b]\n";
+    return os; 
+}
 
 int main(void) {
     std::ios_base::sync_with_stdio(false);
@@ -10,16 +28,11 @@ int main(void) {
 
     MacawV1 m("./valid_words.txt");
     
-    for(const auto &w: m.words()) {
-        std::cout << w << '\n';
-    }
+    std::cout << m.words();
 
     m.calc_entropies();
-    for(const auto &e : m.entropies()){
-        std::cout << e << ' ';
-    }
-    std::cout << '\n';
+    std::cout << m.entropies();
     m.sort_entropies();
-    
+
     return 0;
 }

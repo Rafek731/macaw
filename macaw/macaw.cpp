@@ -198,6 +198,13 @@ void MacawV1::sort_entropies() {
     std::cout << words_[indecies[0]] << ' ' << entropies_[indecies[0]] << '\n';
     std::cout << words_[indecies[1]] << ' ' << entropies_[indecies[1]] << '\n';
     std::cout << words_[indecies[2]] << ' ' << entropies_[indecies[2]] << '\n';
+    std::cout << words_[indecies[3]] << ' ' << entropies_[indecies[3]] << '\n';
+    std::cout << words_[indecies[4]] << ' ' << entropies_[indecies[4]] << '\n';
+    std::cout << words_[indecies[5]] << ' ' << entropies_[indecies[5]] << '\n';
+    std::cout << words_[indecies[6]] << ' ' << entropies_[indecies[6]] << '\n';
+    std::cout << words_[indecies[7]] << ' ' << entropies_[indecies[7]] << '\n';
+    std::cout << words_[indecies[8]] << ' ' << entropies_[indecies[8]] << '\n';
+    std::cout << words_[indecies[9]] << ' ' << entropies_[indecies[9]] << '\n';
 }
 
 
