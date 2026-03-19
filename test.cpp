@@ -27,13 +27,14 @@ int main(void) {
     std::ios_base::sync_with_stdio(false);
     std::cin.tie(0);
 
-    MacawV1 m("./valid_words.txt");
+    Blue m("./valid_words.txt");
     
-    // std::cout << m.words();
+    std::cout << m.words();
 
-    // m.calc_entropies();
-    // std::cout << m.entropies();
-    // m.sort_entropies();
+    m.calc_entropies();
+    m.sort_entropies();
+    std::cout << m.entropies();
+    
     Pattern p(m.make_pattern("doggo", "foieg"));
     std::cout << "foieg" << '\n';
     std::cout << "doggo" << '\n';

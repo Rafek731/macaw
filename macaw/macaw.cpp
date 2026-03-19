@@ -11,11 +11,6 @@ namespace fs = std::filesystem;
 
 unsigned int powers[11] = {1, 3, 9, 27, 81, 243, 729, 2187, 6561, 19683, 59049};
 
-// Destructor implementations
-macaw::Guesser::~Guesser() {}
-
-macaw::MacawV1::~MacawV1() {}
-
 bool macaw::alphastr(const std::string &s) {
     for(int i = 0; i < s.size(); i++) {
         if(!isalpha(s[i])) {
@@ -70,7 +65,7 @@ unsigned int Guesser::make_pattern(std::string_view guess, std::string_view matc
 
     unsigned int p = 0;
 
-    for(unsigned int i = 0; i < letters_; i++) {
+    for(unsigned int i = 0; i < guess.size(); i++) {
         if(guess[i] == match[i]) {
             p += 2 * powers[i];
             perfect_match[i] = true;
@@ -78,7 +73,7 @@ unsigned int Guesser::make_pattern(std::string_view guess, std::string_view matc
         else remembered_match[match[i]]++;
     }
 
-    for(unsigned int i = 0; i < letters_; i++) {
+    for(unsigned int i = 0; i < guess.size(); i++) {
         if(!perfect_match[i] && remembered_match[guess[i]]) {
             p += powers[i];
             remembered_match[guess[i]]--;
@@ -114,9 +109,9 @@ bool Guesser::file_correct_() {
     }
 
     getline(file, line); 
-    letters_ = line.size();
+    unsigned int letters = line.size();
     
-    if(letters_ > MAX_LETTERS) {
+    if(line.size() > MAX_LETTERS) {
         throw std::runtime_error("Word is too long");
     }
     
@@ -127,7 +122,7 @@ bool Guesser::file_correct_() {
     }
     
     while(getline(file, line)) {
-        if(line.size() != letters_) {
+        if(line.size() != letters) {
             file.close();
             throw std::runtime_error(std::string("Different lengths of words!"));
             return false;
@@ -156,10 +151,6 @@ void Guesser::read_words_() {
 
     file.close();
     
-    number_of_patterns = 1;
-
-    for(int i=0; i < letters_; i++)
-        number_of_patterns *= 3;
 }
 
 void Guesser::load_words(fs::path path) {
@@ -175,11 +166,11 @@ void Guesser::load_words(fs::path path) {
     read_words_();
 }
 
-void MacawV1::calc_entropies() {
+void Blue::calc_entropies() {
     if(words_.empty()) 
         throw std::runtime_error("Words not loaded");
 
-    std::vector<double> dist(number_of_patterns, 0);
+    std::vector<double> dist(pow(3, words_[0].size()), 0);
     for(int i = 0; i < words_.size(); i++) {
         std::fill(dist.begin(), dist.end(), 0.);
         std::string_view word = words_[i];
@@ -193,18 +184,9 @@ void MacawV1::calc_entropies() {
     }
 }
 
-void MacawV1::sort_entropies() {
+void Blue::sort_entropies() {
     std::vector<size_t> indecies = argsort(entropies_);
-    std::cout << words_[indecies[0]] << ' ' << entropies_[indecies[0]] << '\n';
-    std::cout << words_[indecies[1]] << ' ' << entropies_[indecies[1]] << '\n';
-    std::cout << words_[indecies[2]] << ' ' << entropies_[indecies[2]] << '\n';
-    std::cout << words_[indecies[3]] << ' ' << entropies_[indecies[3]] << '\n';
-    std::cout << words_[indecies[4]] << ' ' << entropies_[indecies[4]] << '\n';
-    std::cout << words_[indecies[5]] << ' ' << entropies_[indecies[5]] << '\n';
-    std::cout << words_[indecies[6]] << ' ' << entropies_[indecies[6]] << '\n';
-    std::cout << words_[indecies[7]] << ' ' << entropies_[indecies[7]] << '\n';
-    std::cout << words_[indecies[8]] << ' ' << entropies_[indecies[8]] << '\n';
-    std::cout << words_[indecies[9]] << ' ' << entropies_[indecies[9]] << '\n';
+    std::cout << words_[indecies[0]] << ": " << entropies_[indecies[0]] << '\n';
 }
 
 
