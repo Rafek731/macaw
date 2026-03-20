@@ -41,4 +41,12 @@ So we'll need to implement
 
 ### Pattern making
 1. Find perfect matches
-2. Find semi matches from lef to right
+2. Find semi matches from left to right
+
+### Main loop
+1. Calculate entropies
+2. Sort entropies
+3. show top 10
+4. Wait for user to give guess and pattern
+5. filter words that does not match
+6. go to point 1.

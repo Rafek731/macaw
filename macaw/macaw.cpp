@@ -9,7 +9,6 @@ namespace fs = std::filesystem;
 
 
 
-unsigned int powers[11] = {1, 3, 9, 27, 81, 243, 729, 2187, 6561, 19683, 59049};
 
 bool macaw::alphastr(const std::string &s) {
     for(int i = 0; i < s.size(); i++) {
@@ -44,43 +43,6 @@ void macaw::normalize::linear(std::vector<double> &dist) {
  * 
  * retrun p
  */
-unsigned int Guesser::make_pattern(std::string_view guess, std::string_view match) {
-    /** remembered_match
-     * table containing positions of seen letters (not ones perfectly matched)
-     * e.g.
-     * match = alial
-     * guess = aalle
-     * patt  = 21110
-     * 
-     * remembered_match['a'] = (3)
-     * remembered_match['l'] = (1, 4)
-     * remembered_match['i'] = (2)
-     * 
-     * so when we go through '1's on guess we can chech if a letter exists in match
-     * in O(1) time and then 
-     */
-
-    char remembered_match[128]{0};
-    bool perfect_match[MAX_LETTERS]{0};
-
-    unsigned int p = 0;
-
-    for(unsigned int i = 0; i < guess.size(); i++) {
-        if(guess[i] == match[i]) {
-            p += 2 * powers[i];
-            perfect_match[i] = true;
-        }
-        else remembered_match[match[i]]++;
-    }
-
-    for(unsigned int i = 0; i < guess.size(); i++) {
-        if(!perfect_match[i] && remembered_match[guess[i]]) {
-            p += powers[i];
-            remembered_match[guess[i]]--;
-        }
-    }
-    return p;
-}
 
 double macaw::entropy(const std::vector<double>& dist) {
     double ent = 0.0f;
@@ -166,17 +128,24 @@ void Guesser::load_words(fs::path path) {
     read_words_();
 }
 
+void Blue::sort_by_entropy_() {
+    std::vector<size_t> indecies = argsort(entropies_);
+}
+
 void Blue::calc_entropies() {
     if(words_.empty()) 
         throw std::runtime_error("Words not loaded");
 
-    std::vector<double> dist(pow(3, words_[0].size()), 0);
+    entropies_.resize(words_.size());
+
+    std::vector<double> dist(pow(3, words_[0].size()), 0.0);
+
     for(int i = 0; i < words_.size(); i++) {
-        std::fill(dist.begin(), dist.end(), 0.);
         std::string_view word = words_[i];
+        std::fill(dist.begin(), dist.end(), 0.0);
 
         for(std::string_view w : words_) {
-            dist[make_pattern(word, w)] += 1;
+            dist[Pattern(word, w).value()] += 1;
         }
 
         normalization_fn(dist);
@@ -184,9 +153,28 @@ void Blue::calc_entropies() {
     }
 }
 
-void Blue::sort_entropies() {
-    std::vector<size_t> indecies = argsort(entropies_);
-    std::cout << words_[indecies[0]] << ": " << entropies_[indecies[0]] << '\n';
+std::vector<size_t> Blue::top_guesses(unsigned int num_guesses = 10) {
+    num_guesses = (words_.size() >= 10) ? 10 : words_.size();
+    std::vector<size_t> indieces = argsort(entropies_);
+    indieces.resize(num_guesses);
+    return indieces;
 }
+// void Blue::filter_words_(std::string_view word, std::string_view p) {
+// }
 
+// void Blue::filter_words_(std::string_view word, const Pattern &p) {
+//     std::vector<std::string> new_words;
+//     for(const std::string &w : words_) {
+//         if(Pattern(word, w) == p) {
+//             new_words.push_back(w);
+//         }
+//     }
+
+    
+// }
+
+// void Blue::make_guess(std::string guess, std::string response) {
+
+
+// }
 

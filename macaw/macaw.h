@@ -1,4 +1,7 @@
 #pragma once
+
+#include "pattern.h"
+
 #include <vector>
 #include <string>
 #include <filesystem>
@@ -138,8 +141,13 @@ namespace macaw {
 
         std::vector<double> entropies_;
 
+        void sort_by_entropy_();
+
+        // void filter_words_(std::string_view word, const Pattern &p);
+        // void filter_words_(std::string_view word, std::string_view p);
+
         public:
-        explicit Blue(std::filesystem::path path) 
+        Blue(std::filesystem::path path) 
         : Guesser(path)
         , normalization_fn(macaw::normalize::linear) 
         , entropies_({}){ 
@@ -149,9 +157,11 @@ namespace macaw {
         ~Blue() {};
 
         std::vector<double> entropies() const { return entropies_; }
-        
-        void calc_entropies();  
-        void sort_entropies();
 
+        void calc_entropies();  
+
+        std::vector<size_t> top_guesses(unsigned int num_guesses = 10);
+
+        void add_guess(std::string guess, std::string pattern);
     };
 }

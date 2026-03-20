@@ -10,7 +10,6 @@ std::ostream& operator<<(std::ostream &os, const std::vector<T> &v) {
     if(v.size() <= 50){
         for(const auto& element : v) 
             os << element << ' ';
-         
     }
     else {
         for(int i=0; i < 30; i++)
@@ -32,10 +31,9 @@ int main(void) {
     std::cout << m.words();
 
     m.calc_entropies();
-    m.sort_entropies();
     std::cout << m.entropies();
     
-    Pattern p(m.make_pattern("doggo", "foieg"));
+    Pattern p("doggo", "foeig");
     std::cout << "foieg" << '\n';
     std::cout << "doggo" << '\n';
     std::cout << p << '\n';
