@@ -7,8 +7,7 @@
 #include <filesystem>
 #include <numeric>
 #include <algorithm>
-
-#define MAX_LETTERS 12
+#include <span>
 
 namespace macaw {
     // checks if string consists of only characters
@@ -37,8 +36,7 @@ namespace macaw {
      * vector to normalize
      * 
      * @returns
-     * indieces - vector of sorted indieces
-     */
+     * indieces - vector of sorted indieces */
     template <typename T>
     std::vector<size_t> argsort(const std::vector<T>& v) {
         std::vector<size_t> indices(v.size());
@@ -85,8 +83,9 @@ namespace macaw {
      * changes selected flile with valid words and loads it
      * 
      * @param load_words()
-     * checks file calls file_correct_() and read_words()
-     */
+     * checks file calls file_correct_() and read_words() */
+
+
     class Guesser {
         protected:
         std::filesystem::path words_file_;
@@ -96,22 +95,13 @@ namespace macaw {
         bool file_correct_();
         void read_words_();
         
-        
         public:
         explicit Guesser(std::string path) : Guesser(std::filesystem::path(path)) {}
-        explicit Guesser(std::filesystem::path path) 
-        : words_file_(path)
-        , words_({})
-        , best_words_({}) { 
-            load_words(path); 
-        } 
-        
-        ~Guesser() {};
+        explicit Guesser(std::filesystem::path path);
         
         const std::vector<std::string>& words() const { return words_; }
         std::filesystem::path words_file() const { return words_file_; }
-        
-        unsigned int make_pattern(std::string_view guess, std::string_view match);    
+          
         void load_words(std::filesystem::path path);
     };
 
@@ -140,28 +130,20 @@ namespace macaw {
         void (*normalization_fn)(std::vector<double>& v);
 
         std::vector<double> entropies_;
-
-        void sort_by_entropy_();
+        std::vector<size_t> order_;
 
         // void filter_words_(std::string_view word, const Pattern &p);
         // void filter_words_(std::string_view word, std::string_view p);
 
         public:
-        Blue(std::filesystem::path path) 
-        : Guesser(path)
-        , normalization_fn(macaw::normalize::linear) 
-        , entropies_({}){ 
-            entropies_.resize(words_.size()); 
-        }
-
+        Blue(std::filesystem::path path);
+        Blue(std::filesystem::path path, void (*normalizationfn)(std::vector<double> &dist));
         ~Blue() {};
 
         std::vector<double> entropies() const { return entropies_; }
-
         void calc_entropies();  
 
-        std::vector<size_t> top_guesses(unsigned int num_guesses = 10);
-
-        void add_guess(std::string guess, std::string pattern);
+        std::span<size_t> top_guesses(unsigned int num_guesses = 10);
+        void guess_made(std::string_view guess, const Pattern& pattern);
     };
 }

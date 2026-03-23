@@ -11,20 +11,16 @@ std::ostream& macaw::operator<<(std::ostream &os, const Pattern &p) {
     return os;
 }
 
-std::string Pattern::string() const {
+std::string Pattern::string(const size_t fields) const {
     std::string result = "";
     unsigned int val = value_;
 
-    while(val) {
+    while(val || result.size() < fields) {
         result += (char)(val % 3 + '0');
         val /= 3;
     }
 
     return result;
-}
-
-void Pattern::print() {
-    std::cout << *this << '\n';
 }
 
 Pattern::Pattern(std::string_view pattern) {
@@ -36,6 +32,18 @@ Pattern::Pattern(std::string_view pattern) {
     }
 
 }
+
+/**
+ * algorithm goes like this:
+ * iterate through both words first time
+ * if two values match:
+ *      add green value on apropriate postion to p
+ *      mark it as perfect match 
+ * else:
+ *      remember that this letter occured (add it to remembered_match)
+ * 
+ * iterate through both words second time without perfect matches
+ * if value exists in match add yellow value on apropriate postion to p */
 
 Pattern::Pattern(std::string_view guess, std::string_view match){
     char remembered_match[128]{0};

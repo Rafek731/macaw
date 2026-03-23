@@ -5,7 +5,7 @@
 using namespace macaw;
 
 template<typename T>
-std::ostream& operator<<(std::ostream &os, const std::vector<T> &v) {
+std::ostream& operator<<(std::ostream &os, const std::span<T> &v) {
     os << '[';
     if(v.size() <= 50){
         for(const auto& element : v) 
@@ -27,16 +27,26 @@ int main(void) {
     std::cin.tie(0);
 
     Blue m("./valid_words.txt");
-    
-    std::cout << m.words();
 
-    m.calc_entropies();
-    std::cout << m.entropies();
-    
-    Pattern p("doggo", "foeig");
-    std::cout << "foieg" << '\n';
-    std::cout << "doggo" << '\n';
-    std::cout << p << '\n';
-    std::cout << p.value() << '\n';
+    for(const auto &idx : m.top_guesses()) {
+        std::cout << m.words()[idx] << ": " << m.entropies()[idx] << '\n';
+    }
+
+    std::cout << "\n\n\n";
+    m.guess_made("tares", Pattern("00211"));
+
+    for(const auto &idx : m.top_guesses()) {
+        std::cout << m.words()[idx] << ": " << m.entropies()[idx] << '\n';
+    }
+    m.guess_made("morse", Pattern("00211"));
+    std::cout << "\n\n\n";
+    for(const auto &idx : m.top_guesses()) {
+        std::cout << m.words()[idx] << ": " << m.entropies()[idx] << '\n';
+    }
+    m.guess_made("serif", Pattern("22222"));
+    std::cout << "\n\n\n";
+    for(const auto &idx : m.top_guesses()) {
+        std::cout << m.words()[idx] << ": " << m.entropies()[idx] << '\n';
+    }
     return 0;
 }
