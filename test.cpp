@@ -1,6 +1,5 @@
 #include <iostream>
-#include "macaw/macaw.h"
-#include "macaw/pattern.h"
+
 
 using namespace macaw;
 

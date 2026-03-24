@@ -1,4 +1,4 @@
-#include "pattern.h"
+#include "../include/pattern.hpp"
 #include <iostream>
 #include <algorithm>
 
@@ -11,12 +11,14 @@ std::ostream& macaw::operator<<(std::ostream &os, const Pattern &p) {
     return os;
 }
 
+Pattern::Pattern(const unsigned int n) : value_(n) {}
+
 std::string Pattern::string(const size_t fields) const {
     std::string result = "";
     unsigned int val = value_;
 
     while(val || result.size() < fields) {
-        result += (char)(val % 3 + '0');
+        result += static_cast<char>(val % 3 + '0');
         val /= 3;
     }
 
