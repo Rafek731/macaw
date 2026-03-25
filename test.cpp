@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include "./include/Blue.hpp"
 
 using namespace macaw;
 
@@ -32,18 +32,20 @@ int main(void) {
     }
 
     std::cout << "\n\n\n";
-    m.guess_made("tares", Pattern("00211"));
+    m.guess_made("tares", Pattern("00100"));
 
     for(const auto &idx : m.top_guesses()) {
         std::cout << m.words()[idx] << ": " << m.entropies()[idx] << '\n';
     }
-    m.guess_made("morse", Pattern("00211"));
     std::cout << "\n\n\n";
+    m.guess_made("prion", Pattern("02020"));
+
     for(const auto &idx : m.top_guesses()) {
         std::cout << m.words()[idx] << ": " << m.entropies()[idx] << '\n';
     }
-    m.guess_made("serif", Pattern("22222"));
     std::cout << "\n\n\n";
+    m.guess_made("brood", Pattern("22222"));
+
     for(const auto &idx : m.top_guesses()) {
         std::cout << m.words()[idx] << ": " << m.entropies()[idx] << '\n';
     }
