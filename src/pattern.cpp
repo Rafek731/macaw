@@ -53,7 +53,7 @@ Pattern::Pattern(std::string_view guess, std::string_view match){
 
     value_ = 0;
 
-    for(unsigned int i = 0; i < guess.size(); i++) {
+    for(size_t i = 0; i < guess.size(); i++) {
         if(guess[i] == match[i]) {
             value_ += 2 * powers[i];
             perfect_match[i] = true;
@@ -61,7 +61,7 @@ Pattern::Pattern(std::string_view guess, std::string_view match){
         else remembered_match[match[i]]++;
     }
 
-    for(unsigned int i = 0; i < guess.size(); i++) {
+    for(size_t i = 0; i < guess.size(); i++) {
         if(!perfect_match[i] && remembered_match[guess[i]]) {
             value_ += powers[i];
             remembered_match[guess[i]]--;
