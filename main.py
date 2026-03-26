@@ -9,6 +9,7 @@ def clear_terminal():
 
 
 def main(valid_words_path: str) -> None:
+    clear_terminal()
     print("Welcome to macaw showcase! Wait as I load needed words.")
     bot = macaw.Blue(valid_words_path)
  
@@ -19,7 +20,7 @@ def main(valid_words_path: str) -> None:
         clear_terminal()
         top = bot.top_guesses(10)
 
-        assert len(top) > 0, "You must have invalid pattern somewhere"
+        assert len(top) > 0, "You must have passed an invalid pattern somewhere"
 
         if len(top) == 1:
             print(f'Your word is \'{top[0][0]}\'!')
@@ -32,7 +33,7 @@ def main(valid_words_path: str) -> None:
         print()
 
         user_guess = input('Please enter your guess: ')
-        user_pattern = input('What pattern did wordle shown: ')
+        user_pattern = input('What pattern have wordle shown: ')
 
         bot.guess_made(user_guess, user_pattern)
 
