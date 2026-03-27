@@ -6,9 +6,10 @@ Inspired by [3b1b video](https://youtu.be/v68zYyaEmEA) on solving wordle using e
 ### Linux/MacOs
 1. Create virtual environment for python
 ```bash
-python3 -m venv .venv
+python3.x -m venv .venv
 source .venv/bin/activate
 ```
+where `x` is your python version
 
 2. Run
 ```bash
@@ -26,6 +27,7 @@ Currently unsupported (work in progress)
 
 ## How ***Wordle*** calcualtes patterns? ⬛🟨🟩
 Here is the screen from [official wordle website](https://www.nytimes.com/games/wordle/index.html)
+
 ![screen](imgs/Screenshot%20from%202026-03-27%2023-44-08.png)
 
 ## Usage of macaw
@@ -33,7 +35,7 @@ To run ***macaw*** type:
 ```bash
 python3 main.py /path/to/valid/words/file
 ```
-Original ***wordle*** valid words are in file words/english_original.txt<br>
+Original ***wordle*** valid words are in file `words/english_original.txt`<br>
 
 1. Wait for macaw to load the words 
 2. Type desired word to ***wordle***
