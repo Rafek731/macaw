@@ -22,5 +22,7 @@ PYBIND11_MODULE(macaw, m) {
     .def("entropies", &macaw::Blue::entropies,
         "list of current entropies on indieces corresponding to the words")
     .def("calc_entropies", &macaw::Blue::calc_entropies,
-        "Calculates entropies");
+        "Calculates entropies")
+    .def("words", &macaw::Guesser::words,
+    "list of currently stored words");
 }

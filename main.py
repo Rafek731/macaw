@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import macaw
 import argparse
-import subprocess
 from time import sleep
 
 def clear_terminal():
@@ -28,7 +27,7 @@ def main(valid_words_path: str) -> None:
 
         print(f'Best words for now ({len(top)}):')
         
-        for i, tup in enumerate(top):
+        for i, tup in enumerate(top, start=1):
             print(f'{i}. {tup[0]}: {tup[1]}')
         print()
 
@@ -36,6 +35,7 @@ def main(valid_words_path: str) -> None:
         user_pattern = input('What pattern have wordle shown: ')
 
         bot.guess_made(user_guess, user_pattern)
+    input("Press Enter to quit")
 
 
     
