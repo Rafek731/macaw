@@ -11,9 +11,6 @@ Inspired by [3b1b video](https://youtu.be/v68zYyaEmEA) on solving wordle using e
 1. Create virtual environment for python
 ```bash
 python3 -m venv .venv
-```
-2. Activate environment
-```bash
 source .venv/bin/activate
 ```
 
