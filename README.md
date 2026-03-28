@@ -4,14 +4,19 @@ Inspired by [3b1b video](https://youtu.be/v68zYyaEmEA) on solving wordle using e
 
 ## Setup ⚙️
 ### Linux/MacOs
-1. Create virtual environment for python
+1. Make sure you have python3.x-full and python3.x-dev installed
+```bash
+sudo apt install python3.x-full
+sudo apt install python3.x-dev
+```
+2. Create virtual environment for python
 ```bash
 python3.x -m venv .venv
 source .venv/bin/activate
 ```
 where `x` is your python version
 
-2. Run
+3. Run
 ```bash
 pip3 install -r requirements.txt
 python3 setup.py build_ext
