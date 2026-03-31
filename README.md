@@ -23,9 +23,9 @@ python3 setup.py build_ext
 pip3 install --no-build-isolation .
 ```
 ### Windows
-Currently unsupported (work in progress)
+Download 
 
->**Note**: you have to have compiler supporting C++23 installed
+>**Note**: you have to have compiler supporting C++23 installed due to model ***Blue*** being written completly in C++23 (see src and include)
 
 ## What is ***Wordle***? 📝
 ***Wordle*** is a clever game where you have 6 guesses to guess a 5 letter word out of **~15,000** possible valid words (specified beforehand). After each attempt wordle gives you feedback about which letters you guessed correctly, which are misplaced and which do not occur in the answer
