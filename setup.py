@@ -5,7 +5,8 @@ ext_modules = [
     Pybind11Extension(
         "macaw",  # Module name
         ["src/Blue.cpp", "src/Guesser.cpp", "src/pattern.cpp", "src/utils.cpp", "src/macaw.cpp"],  # Source files
-        extra_compile_args=['-std=c++23', '-O3'],
+        extra_compile_args=['-O3', '-w'],
+        cxx_std = 23
     )
 ]
 
