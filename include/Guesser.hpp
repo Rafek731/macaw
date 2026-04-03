@@ -50,9 +50,6 @@ namespace macaw {
         protected:
         std::filesystem::path words_file_;
         std::vector<std::string> words_;
-
-        bool file_correct_();
-        void read_words_();
         
         public:
         explicit Guesser(std::string path) : Guesser(std::filesystem::path(path)) {}
