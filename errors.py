@@ -18,3 +18,12 @@ class FileProcessingError(Exception):
 
     def __str__(self):
         return f"In {self.filename} at line {self.lineno}:\n{self.message}"
+    
+class WordError(Exception):
+    """Exception related to words given by user"""
+    def __init__(self, message):
+        super().__init__(message)
+        self.message = message
+
+    def __str__(self):
+        return self.message
