@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 import macaw
 import argparse
-from time import sleep
+from Blue import Blue
 import os
+from errors import InvalidPatternError, WordError
+from time import sleep
 
 def clear_terminal():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -11,30 +13,39 @@ def clear_terminal():
 def main(valid_words_path: str) -> None:
     clear_terminal()
     print("Welcome to macaw showcase! Wait as I load needed words.")
-    bot = macaw.Blue(valid_words_path)
+    bot = Blue(valid_words_path)
  
     print('Done!\n')
 
     while True:
         clear_terminal()
-        top = bot.top_guesses(10)
+        top = bot.top_guesses()
 
-        assert len(top) > 0, "You must have passed an invalid pattern somewhere"
+        if  len(top) <= 0:
+            raise InvalidPatternError('You must have passed an invalid pattern somewhere')
+
 
         if len(top) == 1:
             print(f'Your word is \'{top[0][0]}\'!')
             break
 
-        print(f'Best words for now ({len(bot.words())}):')
+        while True:
+            print(f'Best words for now ({len(bot.words)}):')
+            
+            for i, tup in enumerate(top, start=1):
+                print(f'{i}. {tup[0]}: {tup[1]}')
+            print()
         
-        for i, tup in enumerate(top, start=1):
-            print(f'{i}. {tup[0]}: {tup[1]}')
-        print()
+            user_guess = input('Please enter your guess: ')
+            user_pattern = input('What pattern have wordle shown: ')
+            try:
+                bot.guess_made(user_guess, user_pattern)
+                break
+            except (InvalidPatternError, WordError) as e:
+                print(e)
+                input('Please try again (press Enter)')
+                clear_terminal()
 
-        user_guess = input('Please enter your guess: ')
-        user_pattern = input('What pattern have wordle shown: ')
-
-        bot.guess_made(user_guess, user_pattern)
     input("Press Enter to quit")
 
 

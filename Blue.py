@@ -8,7 +8,7 @@ class Blue(Guesser):
 
     def __init__(self, valid_words: Path|str):
         super().__init__()
-        self._check_file_correctness()
+        self._check_file_correctness(valid_words)
         self._guesser = macaw.Blue(valid_words)
         self.words_length = len(self._guesser.words()[0])
 
@@ -30,14 +30,14 @@ class Blue(Guesser):
             guess (str): guess typed into wordle
             pattern (str): pattern that wordle generated, e.g. if pattern is 🟩⬛⬛🟩🟨 then type 20021, because
             🟩 = 2, 🟨 = 1, ⬛ = 0 
+
+        Raises:
+            WordError: if either word is impossible to be the answer or word and pattern have different lengths
+            InvalidPatternsError: if pattern does not consist only of '0', '1' and '2'
         """
-
         if guess not in self.words:
-            raise WordError(f'Word {guess} is not a possible word to be the answer')
-        
-        if len(guess) != len(pattern):
-            raise WordError(f'Guess and pattern should be of the same length')
-
+            raise WordError('This word cannot be the answer')
+        super().guess_made(guess, pattern)
         return self._guesser.guess_made(guess, pattern)
     
     @property

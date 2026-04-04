@@ -8,25 +8,29 @@ class Guesser:
     """
     Base class for all guesser models to use in macaw project
     
-    It chcecks correctness of given path
+    It chcecks correctness of given path and validates users input
     """
     _MAX_LETTERS = 12
 
     __slots__ = ['valid_words']
 
-    def __init__(self, valid_words):
+    def __init__(self):
         pass
 
     def guess_made(self, guess: str, pattern: str|Pattern) -> None:
         """Records the guess and pattern given by wordle and performs calculations afterwards"""
         if isinstance(pattern, str):
-            pattern = Pattern(pattern)
-        elif not isinstance(pattern, Pattern):
-            raise ValueError(f'This is an invalid pattern: {pattern}')
+            for d in pattern:
+                if d not in '012':
+                    raise InvalidPatternError('Pattern should only consist of \'0\', \'1\' and \'2\'')
+
+        else:
+            raise InvalidPatternError(f'This is an invalid pattern: {pattern}')
         
 
         if len(guess) != len(pattern):
-            raise ValueError(f'Pattern should be of the same length as the guess, pattern: {len(pattern)} guess: {guess}')
+            raise WordError(f'Pattern should be of the same length as the guess, pattern: {len(pattern)} guess: {len(guess)}')
+        
 
     def top_guesses(self, n: int = 10) -> list:
         """Returns list of top n guesses"""
